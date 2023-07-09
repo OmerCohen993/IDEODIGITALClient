@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { ListingComponent } from './listing/listing.component';
 import { CreateinvoiceComponent } from './createinvoice/createinvoice.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +19,10 @@ import { CreateinvoiceComponent } from './createinvoice/createinvoice.component'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
