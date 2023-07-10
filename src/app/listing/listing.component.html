@@ -11,6 +11,7 @@
         <table class="table table-bordered">
             <thead class="bg-blue text-white">
                 <tr>
+                    <td>Invoice id</td>
                     <td>Invoice Number</td>
                     <td>Costumer Name</td>
                     <td>Status</td>
@@ -22,13 +23,15 @@
 
             <tbody>
                 <tr *ngFor="let invoice of invoicesList">
+                    <td>{{invoice?.id}}</td>
                     <td>{{invoice?.invoiceNo}}</td>
                     <td>{{invoice?.customerName}}</td>
                     <td>{{invoice?.status}}</td>
                     <td>{{invoice?.netTotal}} </td>
                     <td>{{invoice?.dateCreated | date}}</td>
                     <td>{{invoice?.dateUpdated | date}}</td>
-                    <button class="btn btn-primary active">Edit</button> | <a class="btn btn-danger active">Delete</a>
+                    <a class="btn btn-primary active">Edit</a> | <a class="btn btn-danger active"
+                        (click)="DeleteInvoice(invoice?.id)">Delete</a>
                 </tr>
             </tbody>
 

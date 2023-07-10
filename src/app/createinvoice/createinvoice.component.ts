@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { MasterService } from '../service/master.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-createinvoice',
@@ -25,7 +26,7 @@ export class CreateinvoiceComponent {
     invoiceNo: this.builder.control('', Validators.required),
     customerName: this.builder.control('', Validators.required),
     deliveryAddress: this.builder.control(''),
-    status: this.builder.control(''),
+    status: this.builder.control(0),
     total: this.builder.control(0),
     tax: this.builder.control({ value: 0, disabled: true }),
     netTotal: this.builder.control({ value: 0, disabled: true })
@@ -34,16 +35,28 @@ export class CreateinvoiceComponent {
 
   SaveInvoice() {
     if (this.invoiceform.valid) {
+      this.service.SaveInvoice(this.invoiceform.getRawValue()).subscribe(res => {
+        let result: any;
+        result = res;
+        console.log(result.id != null);
+        if (result.id != null) {
+          // if (this.isedit) {
+          this.alert.success('Updated Successfully.', 'Invoice :');
+          // } else {
+          //   this.alert.success('Created Successfully.', 'Invoice :');
+          // }
+          this.router.navigate(['/']);
+        } else {
+          this.alert.error('Failed to save.', 'Invoice');
+        }
+      });
 
     } else {
       this.alert.warning('please fill all the required fields', 'Validation')
     }
-    console.log(this.invoiceform.value);
   }
 
   summarycalculation() {
-
-    console.log("start summary");
 
     let total = this.invoiceform.getRawValue().total;
     console.log("total: " + total);
@@ -53,7 +66,6 @@ export class CreateinvoiceComponent {
     }
 
 
-    // tax calculation
     let sumtax = (17 / 100) * sumtotal;
     let nettotal = sumtotal + sumtax;
 
