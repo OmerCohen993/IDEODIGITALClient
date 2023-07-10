@@ -1,1 +1,150 @@
-<p>createinvoice works!</p>
+<form class="container" [formGroup]="invoiceform" (ngSubmit)="SaveInvoice()">
+
+    <div class="card" style="width: 1200px;">
+        <h3>{{pagetitle}}</h3>
+        <div class="card-header">
+
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="from-group">
+                        <label>Invoice Number</label>
+                        <span class="text-danger">*</span>
+                        <input formControlName="invoiceNo" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="from-group">
+                        <label>Costumer Name</label>
+                        <span class="text-danger">*</span>
+                        <input formControlName="customerName" class="form-control" />
+                    </div>
+                </div>
+
+                <br><br><br><br>
+
+                <div class="col-lg-6">
+                    <div class="from-group">
+                        <label>Address</label>
+                        <span class="text-danger">*</span>
+                        <input formControlName="deliveryAddress" class="form-control" />
+                    </div>
+                </div>
+
+
+                <!-- <div class="col-lg-6">
+                    <div class="from-group">
+                        <label>Date Created</label>
+                        <input formControlName="deliveryAddress" class="form-control" />
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="from-group">
+                        <label>Date Updated</label>
+                        <input formControlName="deliveryAddress" class="form-control" />
+                    </div>
+                </div> -->
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="text-danger">*</span>
+                        <select formControlName="status" class="form-control">
+                            <option *ngFor="let item of statusList">
+                                {{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+
+            <!-- <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-bordered">
+
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <td>price</td>
+                                <td>total</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <a class="btn btn-success">[+]</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div> -->
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="from-group">
+                        <label>Priec</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend col-lg-10">
+                                <input formControlName="total" (change)="summarycalculation()" type="number"
+                                    class="form-control" />
+                            </div>
+                            <span class="input-group-text">&#8362;</span>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="from-group">
+                        <label>Tax</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend col-lg-10">
+                                <input formControlName="tax" type="number" class="form-control" />
+                            </div>
+                            <span class="input-group-text ">&#8362;</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="from-group">
+                        <label>Total Price</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend col-lg-10">
+                                <input formControlName="netTotal" type="number" class="form-control" />
+                            </div>
+                            <span class="input-group-text">&#8362;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <br><br><br><br>
+
+
+
+
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>

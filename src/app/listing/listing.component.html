@@ -1,1 +1,38 @@
-<p>listing works!</p>
+<div class="card">
+
+    <h3>Invoices</h3>
+
+    <div class="card-header">
+        <a class="btn btn-success" routerLink="createinvoice">Create New Invoice</a>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-bordered">
+            <thead class="bg-blue text-white">
+                <tr>
+                    <td>Invoice Number</td>
+                    <td>Costumer Name</td>
+                    <td>Status</td>
+                    <td>Total Price</td>
+                    <td>Date Created</td>
+                    <td>Date Updated</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let invoice of invoicesList">
+                    <td>{{invoice?.invoiceNo}}</td>
+                    <td>{{invoice?.customerName}}</td>
+                    <td>{{invoice?.status}}</td>
+                    <td>{{invoice?.netTotal}} </td>
+                    <td>{{invoice?.dateCreated | date}}</td>
+                    <td>{{invoice?.dateUpdated | date}}</td>
+                    <button class="btn btn-primary active">Edit</button> | <a class="btn btn-danger active">Delete</a>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
