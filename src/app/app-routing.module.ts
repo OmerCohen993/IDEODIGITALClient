@@ -6,7 +6,7 @@ import { CreateinvoiceComponent } from './createinvoice/createinvoice.component'
 const routes: Routes = [
   { component: ListingComponent, path: "" },
   { component: CreateinvoiceComponent, path: "createinvoice" },
-  { component: CreateinvoiceComponent, path: "creatinvoice/:invoiceno" }
+  { component: CreateinvoiceComponent, path: "creatinvoice/:invoicDbId" }
 
 ];
 

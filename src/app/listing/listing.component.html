@@ -1,9 +1,13 @@
-<div class="card">
+<div class="card" style="width: 80%; margin-left: 10%;">
 
-    <h3>Invoices</h3>
+
 
     <div class="card-header">
-        <a class="btn btn-success" routerLink="createinvoice">Create New Invoice</a>
+
+        <div class="title" style="margin: 10px;">
+            <h3>Invoices</h3>
+        </div>
+
     </div>
 
     <div class="card-body">
@@ -11,7 +15,6 @@
         <table class="table table-bordered">
             <thead class="bg-blue text-white">
                 <tr>
-                    <td>Invoice id</td>
                     <td>Invoice Number</td>
                     <td>Costumer Name</td>
                     <td>Status</td>
@@ -23,19 +26,26 @@
 
             <tbody>
                 <tr *ngFor="let invoice of invoicesList">
-                    <td>{{invoice?.id}}</td>
-                    <td>{{invoice?.invoiceNo}}</td>
+                    <td>{{invoice?.invoiceId}}</td>
                     <td>{{invoice?.customerName}}</td>
-                    <td>{{invoice?.status}}</td>
+                    <td>{{this.statusList[invoice?.status].name}}</td>
                     <td>{{invoice?.netTotal}} </td>
                     <td>{{invoice?.dateCreated | date}}</td>
                     <td>{{invoice?.dateUpdated | date}}</td>
-                    <a class="btn btn-primary active">Edit</a> | <a class="btn btn-danger active"
-                        (click)="DeleteInvoice(invoice?.id)">Delete</a>
+                    <td><a class="btn btn-primary active" (click)="EditeInvoice(invoice?.id)"
+                            style="margin-right: 5px;">Edit</a><a class="btn btn-danger active"
+                            (click)="DeleteInvoice(invoice?.id)">Delete</a></td>
                 </tr>
             </tbody>
 
         </table>
+
+        <div class="col-lg-12 ">
+            <div class="float-end">
+                <a class="btn btn-success" routerLink="createinvoice">Create New Invoice</a>
+            </div>
+        </div>
+
     </div>
 
 </div>

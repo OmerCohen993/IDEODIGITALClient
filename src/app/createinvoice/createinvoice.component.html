@@ -1,10 +1,15 @@
 <form class="container" [formGroup]="invoiceform" (ngSubmit)="SaveInvoice()">
 
-    <div class="card" style="width: 1200px;">
-        <h3>{{pagetitle}}</h3>
+    <div class="card" style="width: 100%;">
+
         <div class="card-header">
 
+            <div class="title" style="margin: 10px;">
+                <h3>{{pagetitle}}</h3>
+            </div>
+
         </div>
+
         <div class="card-body">
 
             <div class="row">
@@ -13,7 +18,7 @@
                     <div class="from-group">
                         <label>Invoice Number</label>
                         <span class="text-danger">*</span>
-                        <input formControlName="invoiceNo" class="form-control" />
+                        <input formControlName="invoiceId" class="form-control" />
                     </div>
                 </div>
 
@@ -35,28 +40,12 @@
                     </div>
                 </div>
 
-
-                <!-- <div class="col-lg-6">
-                    <div class="from-group">
-                        <label>Date Created</label>
-                        <input formControlName="deliveryAddress" class="form-control" />
-                    </div>
-                </div>
-
-
-                <div class="col-lg-6">
-                    <div class="from-group">
-                        <label>Date Updated</label>
-                        <input formControlName="deliveryAddress" class="form-control" />
-                    </div>
-                </div> -->
-
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>Status</label>
                         <span class="text-danger">*</span>
                         <select formControlName="status" class="form-control">
-                            <option *ngFor="let item of statusList" [value]=item.value>
+                            <option *ngFor="let item of statusList" [ngValue]=item.value>
                                 {{item.name}}
                             </option>
                         </select>
@@ -114,9 +103,11 @@
 
 
 
-                <div class="col-lg-12">
-                    <button type="submit" class="btn btn-success" style="margin-right: 10px;">Save</button>
-                    <a routerLink="/" class="btn btn-danger">Back</a>
+                <div class="col-lg-12 ">
+                    <div class="float-end">
+                        <a routerLink="/" class="btn btn-danger" style="margin-right: 10px;">Back</a>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
                 </div>
 
             </div>

@@ -14,16 +14,25 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateinvoiceComponent {
 
   constructor(private builder: FormBuilder, private service: MasterService, private router: Router,
-    private alert: ToastrService) { }
+    private alert: ToastrService, private activeroute: ActivatedRoute) { }
 
   pagetitle = "Create Invoice";
+  editinvoice: any;
+  isedit = false;
 
   ngOnInit() {
-
+    this.editinvoice = this.activeroute.snapshot.paramMap.get('invoicDbId');
+    if (this.editinvoice != null) {
+      this.pagetitle = "Edit Invoice";
+      this.isedit = true;
+      console.log(this.editinvoice);
+      this.GetIncoice(this.editinvoice);
+    }
   }
 
   invoiceform = this.builder.group({
-    invoiceNo: this.builder.control('', Validators.required),
+    id: this.builder.control(''),
+    invoiceId: this.builder.control('', Validators.required),
     customerName: this.builder.control('', Validators.required),
     deliveryAddress: this.builder.control(''),
     status: this.builder.control(0),
@@ -33,23 +42,62 @@ export class CreateinvoiceComponent {
 
   });
 
+  GetIncoice(invoiceId: any) {
+    console.log("GetIncoice:  " + invoiceId)
+    this.service.GetInvoice(invoiceId).subscribe(res => {
+      let invoice: any;
+      invoice = res;
+      if (invoice != null) {
+        this.invoiceform.patchValue({
+          id: invoice.id,
+          invoiceId: invoice.invoiceId, customerName: invoice.customerName, deliveryAddress: invoice.deliveryAddress,
+          status: invoice.status, total: invoice.total, netTotal: invoice.netTotal, tax: invoice.tax
+        })
+      }
+    });
+  }
+
+
   SaveInvoice() {
     if (this.invoiceform.valid) {
-      this.service.SaveInvoice(this.invoiceform.getRawValue()).subscribe(res => {
-        let result: any;
-        result = res;
-        console.log(result.id != null);
-        if (result.id != null) {
-          // if (this.isedit) {
-          this.alert.success('Updated Successfully.', 'Invoice :');
-          // } else {
-          //   this.alert.success('Created Successfully.', 'Invoice :');
-          // }
-          this.router.navigate(['/']);
-        } else {
-          this.alert.error('Failed to save.', 'Invoice');
-        }
-      });
+      let check = this.invoiceform.getRawValue();
+      if (this.isedit) {
+        console.log(this.invoiceform.getRawValue());
+        this.service.UpdateInvoice(this.invoiceform.getRawValue()).subscribe(res => {
+          let result: any;
+          result = res;
+          console.log(result.id != null);
+          console.log(result);
+          if (result.id != null) {
+            if (this.isedit) {
+              this.alert.success('Invoice editing Success');
+            } else {
+              this.alert.success('Created Successfully');
+            }
+            this.router.navigate(['/']);
+          } else {
+            this.alert.error('Failed to save.', 'Invoice');
+          }
+        });
+      } else {
+        this.service.SaveInvoice(this.invoiceform.getRawValue()).subscribe(res => {
+          let result: any;
+          result = res;
+          console.log(result.id != null);
+          console.log(result);
+          if (result.id != null) {
+            if (this.isedit) {
+              this.alert.success('Invoice editing Success');
+            } else {
+              this.alert.success('Created Successfully');
+            }
+            this.router.navigate(['/']);
+          } else {
+            this.alert.error('Failed to save.', 'Invoice');
+          }
+        });
+      }
+
 
     } else {
       this.alert.warning('please fill all the required fields', 'Validation')

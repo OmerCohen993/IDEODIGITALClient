@@ -13,17 +13,20 @@ export class MasterService {
   }
 
   GetInvoice(invoicId: any) {
-    return this.http.get('http://localhost:5223/invoices/invoice?id=' + invoicId);
+
+    return this.http.get('http://localhost:5223/Invoices/invoice?id=' + invoicId);
   }
 
   SaveInvoice(invoicedata: any) {
     return this.http.post('http://localhost:5223/invoices', invoicedata);
   }
 
+  UpdateInvoice(invoicedata: any) {
+    return this.http.put('http://localhost:5223/invoices', invoicedata);
+  }
+
   RemoveInvoice(invoicId: any) {
     return this.http.delete('http://localhost:5223/invoices/?id=' + invoicId);
   }
-
-
 
 }
